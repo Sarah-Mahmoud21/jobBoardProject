@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const joblistings = require("./joblisting");
+const employers = require("./employers");
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ const pool  = mysql.createPool({
 app.use(express.urlencoded({extended: false})); // New
 
 app.use("/jobs",joblistings(pool))
+app.use("/employers",employers(pool))
 
 app.use(express.json()); // New
 
