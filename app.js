@@ -16,13 +16,14 @@ const pool  = mysql.createPool({
     password        : '',
     database        : 'job_board'
 })
+app.use(express.json()); // New
 
 app.use(express.urlencoded({extended: false})); // New
 
 app.use("/jobs",joblistings(pool))
 app.use("/employers",employers(pool))
 
-app.use(express.json()); // New
+
 
 
 app.use("*", (req,res) => res.send({message: `Invalid end point.`}))

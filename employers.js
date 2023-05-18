@@ -61,26 +61,23 @@ router.delete('/:employer_id', (req, res) => {
 });
 
 
-router.post('', (req, res) => {
-
+router.post('/', (req, res) => {
     pool.getConnection((err, connection) => {
-        if(err) throw err
-        
-        console.log('connected as id${connection.threadId}')
-        const params = req.body
-        connection.query('INSERT INTO employers SET ?', params, (err, rows) => {
-        connection.release() // return the connection to pool
+      if (err) throw err;
+      console.log(`connected as id ${connection.threadId}`);
+      const params = req.body;
+  
+      connection.query('INSERT INTO employers SET ?', params, (err, result) => {
+        connection.release();
         if (!err) {
-            res.send(`Beer with the record ID  has been added.`)
+          res.send(`employer with the record ID: ${result.insertId} has been added`);
         } else {
-            console.log(err)
+          console.log(err);
+          res.status(500).send('Internal Server Error');
         }
-        
-      
-        })
-        console.log(req.body)
-    })
-})
+      });
+    });
+  });
 
 
 
@@ -96,6 +93,8 @@ router.put('', (req, res) => {
         console.log(`connected as id ${connection.threadId}`)
 
         const { employer_id, root,  contact_info, role, password} = req.body
+        
+        console.log(employer_id, root,  contact_info, role, password)
 
         connection.query('UPDATE employers SET  root = ?, contact_info = ?, role = ?,password = ? WHERE employer_id = ?', [ root,  contact_info, role, password,employer_id] , (err, rows) => {
             connection.release() // return the connection to pool
