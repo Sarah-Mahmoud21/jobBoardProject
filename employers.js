@@ -1,6 +1,6 @@
 const Router = require('express')
 
-const jobListing = (pool) => {
+const employers = (pool) => {
     const router = Router();
 
     // Get all 
@@ -9,7 +9,7 @@ router.get('', (req, res) => {
     pool.getConnection((err, connection) => {
         if(err) throw err
         console.log('connected as id ' + connection.threadId)
-        connection.query('SELECT * from joblistings', (err, rows) => {
+        connection.query('SELECT * from employers', (err, rows) => {
             connection.release() // return the connection to pool
 
             if (!err) {
@@ -19,17 +19,17 @@ router.get('', (req, res) => {
             }
 
             // if(err) throw err
-            console.log('The data from joblistings table are: \n', rows)
+            console.log('The data from employers table are: \n', rows)
         })
     })
 })
 
 /// get by id
 
-router.get('/:job_id', (req, res) => {
+router.get('/:employer_id', (req, res) => {
     pool.getConnection((err, connection) => {
         if(err) throw err
-        connection.query('SELECT * FROM joblistings WHERE job_id = ?', [req.params.job_id], (err, rows) => {
+        connection.query('SELECT * FROM employers WHERE employer_id = ?', [req.params.employer_id], (err, rows) => {
             connection.release() // return the connection to pool
             if (!err) {
                 res.send(rows)
@@ -37,25 +37,25 @@ router.get('/:job_id', (req, res) => {
                 console.log(err)
             }
             
-            console.log('The data from joblistings table are: \n', rows)
+            console.log('The data from employers table are: \n', rows)
         })
     })
 });
 
 // Delete a list
-router.delete('/:job_id', (req, res) => {
+router.delete('/:employer_id', (req, res) => {
 
     pool.getConnection((err, connection) => {
         if(err) throw err
-        connection.query('DELETE FROM joblistings WHERE job_id = ?', [req.params.job_id], (err, rows) => {
+        connection.query('DELETE FROM employers WHERE employer_id = ?', [req.params.employer_id], (err, rows) => {
             connection.release() // return the connection to pool
             if (!err) {
-                res.send(`joblistings with the record ID ${[req.params.id]} has been removed.`)
+                res.send(`employers with the record ID ${[req.params.id]} has been removed.`)
             } else {
                 console.log(err)
             }
             
-            console.log('The data from joblistings table are: \n', rows)
+            console.log('The data from employers table are: \n', rows)
         })
     })
 });
@@ -68,7 +68,7 @@ router.post('', (req, res) => {
         
         console.log('connected as id${connection.threadId}')
         const params = req.body
-        connection.query('INSERT INTO joblistings SET ?', params, (err, rows) => {
+        connection.query('INSERT INTO employers SET ?', params, (err, rows) => {
         connection.release() // return the connection to pool
         if (!err) {
             res.send(`Beer with the record ID  has been added.`)
@@ -95,13 +95,13 @@ router.put('', (req, res) => {
         if(err) throw err
         console.log(`connected as id ${connection.threadId}`)
 
-        const { job_id, employer_id, title, description, requirements, salary_range,location,posted_date,expiry_date} = req.body
+        const { employer_id, root,  contact_info, role, password} = req.body
 
-        connection.query('UPDATE joblistings SET  employer_id = ?, title = ?, description = ?,requirements = ?, salary_range = ?, location = ?,posted_date = ?, expiry_date= ? WHERE job_id = ?', [employer_id, title, description, requirements, salary_range,location,posted_date,expiry_date,job_id] , (err, rows) => {
+        connection.query('UPDATE employers SET  root = ?, contact_info = ?, role = ?,password = ? WHERE employer_id = ?', [ root,  contact_info, role, password,employer_id] , (err, rows) => {
             connection.release() // return the connection to pool
 
             if(!err) {
-                res.send(`joblistings with the id: ${job_id} has been updated.`)
+                res.send(`employers with the id: ${employer_id} has been updated.`)
             } else {
                 console.log(err)
             }
@@ -115,4 +115,4 @@ router.put('', (req, res) => {
 return router;
 }
 
-module.exports = jobListing;
+module.exports = employers;
