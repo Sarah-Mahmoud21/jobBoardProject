@@ -4,6 +4,8 @@ const mysql = require('mysql')
 const joblistings = require("./joblisting");
 const employers = require("./employers");
 const jobseekers = require("./jobseekers");
+const applications = require('./applications');
+
 
 const app = express()
 const port = process.env.PORT || 5000;
@@ -24,7 +26,7 @@ app.use(express.urlencoded({extended: false})); // New
 app.use("/jobs",joblistings(pool))
 app.use("/employers",employers(pool))
 app.use("/seekers", jobseekers(pool))
-
+app.use('/applications', applications(pool));
 
 
 
