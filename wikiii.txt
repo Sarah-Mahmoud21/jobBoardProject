@@ -1,0 +1,3 @@
+Welcome to the jobBoardProject wiki!
+The Job Board Project is an online platform designed to connect job seekers with potential employers. It provides a centralized hub where job seekers can browse and search for job listings, and employers can post job openings and manage applications. The project aims to simplify the job search process and streamline the recruitment process for employers.
+The Job Board Project is an online platform designed to connect job seekers with potential employers. It provides a centralized hub where job seekers can browse and search for job listings, and employers can post job openings and manage applications. The project aims to simplify the job search process and streamline the recruitment process for employers.
