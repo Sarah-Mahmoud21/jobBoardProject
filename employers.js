@@ -111,6 +111,53 @@ router.put('', (req, res) => {
     })
 })
 
+
+//   // Save a job search
+//   router.post('/search', (req, res) => {
+//     const { job_seeker_id, search_title, location, salary_range } = req.body;
+//     const savedSearch = { job_seeker_id, search_title, location, salary_range };
+
+//     pool.getConnection((err, connection) => {
+//       if (err) throw err;
+//       console.log(`connected as id ${connection.threadId}`);
+
+//       connection.query('INSERT INTO savedsearches SET ?', savedSearch, (err, result) => {
+//         connection.release();
+//         if (!err) {
+//           res.send(`Job search saved with the record ID: ${result.insertId}`);
+//         } else {
+//           console.log(err);
+//           res.status(500).send('Internal Server Error');
+//         }
+//       });
+//     });
+//   });
+
+router.get('/jobs', (req, res) => {
+    const { title, location, salary } = req.query;
+
+    pool.getConnection((err, connection) => {
+      if (err) throw err;
+      console.log(`Connected as id ${connection.threadId}`);
+
+      const searchQuery = 'SELECT * FROM joblistings WHERE title LIKE ? OR location LIKE ? OR salary >= ?';
+
+      const searchParams = [`%${title}%`, `%${location}%`, salary || 0];
+
+      connection.query(searchQuery, searchParams, (err, results) => {
+        connection.release();
+        if (!err) {
+          res.json(results);
+        } else {
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        }
+      });
+    });
+  });
+
+
+
 return router;
 }
 
