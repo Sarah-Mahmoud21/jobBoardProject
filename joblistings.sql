@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2023 at 10:06 PM
+-- Generation Time: May 22, 2023 at 01:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,19 +36,22 @@ CREATE TABLE `joblistings` (
   `salary_range` int(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `posted_date` date DEFAULT NULL,
-  `expiry_date` date DEFAULT NULL
+  `expiry_date` date DEFAULT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `company_logo` varchar(255) NOT NULL,
+  `job_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `joblistings`
 --
 
-INSERT INTO `joblistings` (`job_id`, `employer_id`, `title`, `description`, `requirements`, `salary_range`, `location`, `posted_date`, `expiry_date`) VALUES
-(111, 1, 'devloper', 'We\'re seeking an experienced frontend, react engineer to join our engineering team!\r\n\r\nYou\'ll be joining our team of 3 engineers as our specialist in React UI.\r\n\r\nWe think a lot about our craft as engineers. We involve everyone deeply in the product & design cycles, so you have input into what we build and why we\'re building it.\r\n\r\nWe talk to our customers, a lot. Everyone on the team spends time in our public Slack talking to our customers and understanding what they want. We believe in building intuition about our customers, vs. relying only on our own.\r\n\r\nAs an engineering team, we are deeply ambitious. We\'ve built our own ML models, plug-and-play architectures for both cloud and on-prem, use various streams/IoT/interfaces to build experiences for users.', 'java \r\npaython \r\nnode js', 1000, 'Naplus', '2023-05-10', '2023-05-31'),
-(222, 2, 'Developer', 'we need java developer ...', 'python \r\nnodejs\r\njavascript', 20000, 'Ramallah', '2023-05-04', '2023-05-14'),
-(333, 2, 'Software Engineer', 'Join our team as a software engineer...', 'C++\nJava\nSQL', 30000, 'Ramallah', '2023-05-05', '2023-05-15'),
-(444, 1, 'Web Developer', 'Looking for a skilled web developer...', 'HTML\nCSS\nJavaScript', 25000, 'Ramallah', '2023-05-06', '2023-05-16'),
-(888, 2, 'Developer', 'We need a Java developer...', 'Python\nNode.js\nJavaScript', 20000, 'Ramallah', '2023-05-04', '2023-05-14');
+INSERT INTO `joblistings` (`job_id`, `employer_id`, `title`, `description`, `requirements`, `salary_range`, `location`, `posted_date`, `expiry_date`, `company_name`, `company_logo`, `job_url`) VALUES
+(111, 1, 'devloper', 'We\'re seeking an experienced frontend, react engineer to join our engineering team!\r\n\r\nYou\'ll be joining our team of 3 engineers as our specialist in React UI.\r\n\r\nWe think a lot about our craft as engineers. We involve everyone deeply in the product & design cycles, so you have input into what we build and why we\'re building it.\r\n\r\nWe talk to our customers, a lot. Everyone on the team spends time in our public Slack talking to our customers and understanding what they want. We believe in building intuition about our customers, vs. relying only on our own.\r\n\r\nAs an engineering team, we are deeply ambitious. We\'ve built our own ML models, plug-and-play architectures for both cloud and on-prem, use various streams/IoT/interfaces to build experiences for users.', 'java \r\npaython \r\nnode js', 1000, 'Naplus', '2023-05-10', '2023-05-31', '', '', ''),
+(333, 2, 'Software Engineer', 'Join our team as a software engineer...', 'C++\nJava\nSQL', 30000, 'Ramallah', '2023-05-05', '2023-05-15', '', '', ''),
+(444, 1, 'Web Developer', 'Looking for a skilled web developer...', 'HTML\nCSS\nJavaScript', 25000, 'Ramallah', '2023-05-06', '2023-05-16', '', '', ''),
+(888, 2, 'Developer', 'We need a Java developer...', 'Python\nNode.js\nJavaScript', 20000, 'Ramallah', '2023-05-04', '2023-05-14', '', '', ''),
+(999, 2, 'devloper', 'We\'re seeking an experienced frontend, react engineer to join our engineering team!\r\n\r\nYou\'ll be joining our team of 3 engineers as our specialist in React UI.\r\n\r\nWe think a lot about our craft as engineers. We involve everyone deeply in the product & design cycles, so you have input into what we build and why we\'re building it.\r\n\r\nWe talk to our customers, a lot. Everyone on the team spends time in our public Slack talking to our customers and understanding what they want. We believe in building intuition about our customers, vs. relying only on our own.\r\n\r\nAs an engineering team, we are deeply ambitious. We\'ve built our own ML models, plug-and-play architectures for both cloud and on-prem, use various streams/IoT/interfaces to build experiences for users.', 'java \r\npaython \r\nnode js', 555, 'Naplus', '2023-05-09', '2023-05-30', '', '', '');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
