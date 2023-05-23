@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2023 at 12:43 PM
+-- Generation Time: May 22, 2023 at 01:33 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -35,6 +35,14 @@ CREATE TABLE `applications` (
   `cover_letter` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`application_id`, `job_seeker_id`, `job_id`, `resume_path`, `cover_letter`) VALUES
+(5577, 55, 222, 'resume path of app 55 ', 'cover letter of employee updated '),
+(5578, 55, 222, 'resume path of app 1 ', 'cover letter of employee 55');
+
 -- --------------------------------------------------------
 
 --
@@ -54,7 +62,8 @@ CREATE TABLE `employers` (
 --
 
 INSERT INTO `employers` (`employer_id`, `root`, `contact_info`, `role`, `password`) VALUES
-(1, 'ali', 'ali@example.com', 'manager', '65466');
+(1, 'ali', 'ali@example.com', 'manager', '65466'),
+(2, 'sama', 'sama@example.com', 'engeneer', '856984');
 
 -- --------------------------------------------------------
 
@@ -77,6 +86,17 @@ CREATE TABLE `joblistings` (
   `job_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `joblistings`
+--
+
+INSERT INTO `joblistings` (`job_id`, `employer_id`, `title`, `description`, `requirements`, `salary_range`, `location`, `posted_date`, `expiry_date`, `company_name`, `company_logo`, `job_url`) VALUES
+(111, 1, 'devloper', 'We\'re seeking an experienced frontend, react engineer to join our engineering team!\r\n\r\nYou\'ll be joining our team of 3 engineers as our specialist in React UI.\r\n\r\nWe think a lot about our craft as engineers. We involve everyone deeply in the product & design cycles, so you have input into what we build and why we\'re building it.\r\n\r\nWe talk to our customers, a lot. Everyone on the team spends time in our public Slack talking to our customers and understanding what they want. We believe in building intuition about our customers, vs. relying only on our own.\r\n\r\nAs an engineering team, we are deeply ambitious. We\'ve built our own ML models, plug-and-play architectures for both cloud and on-prem, use various streams/IoT/interfaces to build experiences for users.', 'java \r\npaython \r\nnode js', 1000, 'Naplus', '2023-05-10', '2023-05-31', '', '', ''),
+(333, 2, 'Software Engineer', 'Join our team as a software engineer...', 'C++\nJava\nSQL', 30000, 'Ramallah', '2023-05-05', '2023-05-15', '', '', ''),
+(444, 1, 'Web Developer', 'Looking for a skilled web developer...', 'HTML\nCSS\nJavaScript', 25000, 'Ramallah', '2023-05-06', '2023-05-16', '', '', ''),
+(888, 2, 'Developer', 'We need a Java developer...', 'Python\nNode.js\nJavaScript', 20000, 'Ramallah', '2023-05-04', '2023-05-14', '', '', ''),
+(999, 2, 'devloper', 'We\'re seeking an experienced frontend, react engineer to join our engineering team!\r\n\r\nYou\'ll be joining our team of 3 engineers as our specialist in React UI.\r\n\r\nWe think a lot about our craft as engineers. We involve everyone deeply in the product & design cycles, so you have input into what we build and why we\'re building it.\r\n\r\nWe talk to our customers, a lot. Everyone on the team spends time in our public Slack talking to our customers and understanding what they want. We believe in building intuition about our customers, vs. relying only on our own.\r\n\r\nAs an engineering team, we are deeply ambitious. We\'ve built our own ML models, plug-and-play architectures for both cloud and on-prem, use various streams/IoT/interfaces to build experiences for users.', 'java \r\npaython \r\nnode js', 555, 'Naplus', '2023-05-09', '2023-05-30', '', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -97,7 +117,10 @@ CREATE TABLE `jobseekers` (
 INSERT INTO `jobseekers` (`job_seeker_id`, `root`, `contact_info`, `password`) VALUES
 (2, 'Rua123', 'Rua@example.com', '123457'),
 (3, 'sara', 'sara@example.com', '55555'),
-(4, 'Arwa67766', 'Arwa6644@example.com', '4868');
+(4, 'Arwa67766', 'Arwa6644@example.com', '4868'),
+(55, 'asdfg', 'asdfg@example.com', '55585vdfgh'),
+(88, 'Arwa', 'example@example.com', '485698'),
+(999547, 'Ahmad', 'Ahmad@example.com', '555');
 
 -- --------------------------------------------------------
 
@@ -110,8 +133,18 @@ CREATE TABLE `savedsearches` (
   `job_seeker_id` int(11) DEFAULT NULL,
   `search_title` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
-  `salary_range` varchar(255) DEFAULT NULL
+  `salary_range` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `savedsearches`
+--
+
+INSERT INTO `savedsearches` (`search_id`, `job_seeker_id`, `search_title`, `location`, `salary_range`) VALUES
+(1, 2, 'Software Engineer Jobs', 'San Francisco', 100000),
+(2, 3, 'Web Developer Positions', 'New York', 80000),
+(3, 4, 'Data Analyst Openings', 'Chicago', 60000),
+(191919, 2, 'Devloper jops', 'Nublus', 5000);
 
 --
 -- Indexes for dumped tables
@@ -126,53 +159,14 @@ ALTER TABLE `applications`
   ADD KEY `job_id` (`job_id`);
 
 --
--- Indexes for table `employers`
---
-ALTER TABLE `employers`
-  ADD PRIMARY KEY (`employer_id`);
-
---
--- Indexes for table `joblistings`
---
-ALTER TABLE `joblistings`
-  ADD PRIMARY KEY (`job_id`),
-  ADD KEY `employer_id` (`employer_id`);
-
---
--- Indexes for table `jobseekers`
---
-ALTER TABLE `jobseekers`
-  ADD PRIMARY KEY (`job_seeker_id`);
-
---
--- Indexes for table `savedsearches`
---
-ALTER TABLE `savedsearches`
-  ADD PRIMARY KEY (`search_id`),
-  ADD KEY `job_seeker_id` (`job_seeker_id`);
-
---
--- Constraints for dumped tables
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Constraints for table `applications`
+-- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_seeker_id`) REFERENCES `jobseekers` (`job_seeker_id`),
-  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`job_id`) REFERENCES `joblistings` (`job_id`);
-
---
--- Constraints for table `joblistings`
---
-ALTER TABLE `joblistings`
-  ADD CONSTRAINT `joblistings_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employers` (`employer_id`);
-
---
--- Constraints for table `savedsearches`
---
-ALTER TABLE `savedsearches`
-  ADD CONSTRAINT `savedsearches_ibfk_1` FOREIGN KEY (`job_seeker_id`) REFERENCES `jobseekers` (`job_seeker_id`);
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5579;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
